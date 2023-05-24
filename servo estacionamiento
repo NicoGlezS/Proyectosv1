@@ -1,0 +1,34 @@
+#include <Servo.h>
+
+Servo motor;
+
+int valor, valor_antiguo, estado;
+int pulsador = 4;
+int led = 7;
+
+void setup() {
+
+  motor.attach(6);
+  Serial.begin(9600);
+  pinMode(pulsador,INPUT);
+}
+
+void loop() {
+
+  valor = digitalRead(pulsador);
+  if((valor==HIGH)&&(valor_antiguo==LOW)){
+    estado = 1 - estado;
+    delay(20);
+    }
+  valor_antiguo = valor;
+  Serial.println(estado);
+
+
+  if(estado==1){
+    motor.write(90);    
+    }
+
+  if(estado==0){
+    motor.write(0);    
+    }
+}
